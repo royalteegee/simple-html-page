@@ -1,0 +1,20 @@
+name: learning github actions
+
+on:
+  push
+    branch: [main]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: us-east-1
+      BUCKET: s3://smarthub-testing 
+    steps: 
+      - name: Clone the repo
+        run: git clone https://github.com/royalteegee/simple-html-page.git
+
+      - name: Copy/sync to s3
+        run: aws s3 sync . s3://smarthub-testing --exclude ".git/*"
