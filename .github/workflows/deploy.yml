@@ -1,8 +1,8 @@
 name: learning github actions
 
 on:
-  push
-    branch: [main]
+  push:
+    branches: [main]
 
 jobs:
   sync:
@@ -17,4 +17,4 @@ jobs:
         run: git clone https://github.com/royalteegee/simple-html-page.git
 
       - name: Copy/sync to s3
-        run: aws s3 sync . s3://smarthub-testing --exclude ".git/*"
+        run: aws s3 sync ./simple-html-page s3://smarthub-testing --exclude ".git/*"
